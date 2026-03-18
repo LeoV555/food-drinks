@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Spring Borderless winer MENU</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: contain;
+        }
+
+        .food-item { border-bottom: 1px solid #fce7f3; }
+        .drink-item { border-bottom: 1px solid #d1fae5; }
+        
+        html { scroll-behavior: smooth; }
+
+        .lang-btn { transition: all 0.2s ease; }
+        .lang-btn.active {
+            background-color: #1e293b;
+            color: white;
+            border-color: #1e293b;
+        }
+
+        .sub-header {
+            position: sticky;
+            top: 115px;
+            z-index: 40;
+        }
+        
+        @media (min-width: 640px) {
+            .sub-header { top: 105px; }
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 antialiased">
+
+    <!-- Glava -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-2xl mx-auto px-4 py-3">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-3">
+                <h1 class="font-bold text-base sm:text-lg tracking-tight uppercase text-center sm:text-left">
+                    Spring Borderless winenr MENU&CENIK 
+                </h1>
+                <div class="flex gap-1.5">
+                    <button onclick="changeLanguage('sl')" id="btn-sl" class="lang-btn active text-[11px] font-bold border border-slate-200 px-3 py-1.5 rounded-md uppercase">SL</button>
+                    <button onclick="changeLanguage('en')" id="btn-en" class="lang-btn text-[11px] font-bold border border-slate-200 px-3 py-1.5 rounded-md uppercase">EN</button>
+                    <button onclick="changeLanguage('it')" id="btn-it" class="lang-btn text-[11px] font-bold border border-slate-200 px-3 py-1.5 rounded-md uppercase">IT</button>
+                </div>
+            </div>
+            <div class="flex justify-center sm:justify-start gap-3">
+                <a href="#food" id="nav-food" class="flex-1 sm:flex-none text-center text-sm font-bold text-pink-600 bg-pink-50 px-6 py-2 rounded-xl transition-colors hover:bg-pink-100 active:scale-95">Hrana</a>
+                <a href="#drinks" id="nav-drinks" class="flex-1 sm:flex-none text-center text-sm font-bold text-emerald-600 bg-emerald-50 px-6 py-2 rounded-xl transition-colors hover:bg-emerald-100 active:scale-95">Pijača</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-2xl mx-auto">
+        
+        <!-- SEKCIJA HRANA -->
+        <section id="food" class="scroll-mt-32">
+            <!-- Naslov Sladko -->
+            <div class="px-5 py-6 border-b border-pink-100 bg-pink-50/40">
+                <h2 class="text-xl font-bold text-pink-800 flex items-center gap-2">
+                    <span>🍰</span> <span data-key="sub-sweet">Nekaj sladkega</span>
+                </h2>
+            </div>
+            <div class="divide-y divide-pink-100" id="list-sweet"></div>
+
+            <!-- Naslov Kosila -->
+            <div class="px-5 py-6 border-b border-pink-100 bg-pink-50/40 mt-4">
+                <h2 class="text-xl font-bold text-pink-800 flex items-center gap-2">
+                    <span>🍽️</span> <span data-key="sub-lunch">Kosila</span>
+                </h2>
+            </div>
+            <div class="divide-y divide-pink-100" id="list-lunch"></div>
+        </section>
+
+        <!-- SEKCIJA PIJAČA -->
+        <section id="drinks" class="scroll-mt-32 mt-10">
+            <!-- Topli napitki -->
+            <div class="px-5 py-6 border-b border-emerald-100 bg-emerald-50/40">
+                <h2 class="text-xl font-bold text-emerald-800 flex items-center gap-2">
+                    <span>☕</span> <span data-key="sub-hot">Topli napitki</span>
+                </h2>
+            </div>
+            <div class="divide-y divide-emerald-100" id="list-hot"></div>
+
+            <!-- Hladne pijače -->
+            <div class="px-5 py-6 border-b border-emerald-100 bg-emerald-50/40 mt-4">
+                <h2 class="text-xl font-bold text-emerald-800 flex items-center gap-2">
+                    <span>🥤</span> <span data-key="sub-cold">Hladne pijače</span>
+                </h2>
+            </div>
+            <div class="divide-y divide-emerald-100" id="list-cold"></div>
+
+            <!-- Alkoholne pijače -->
+            <div class="px-5 py-6 border-b border-emerald-100 bg-emerald-50/40 mt-4">
+                <h2 class="text-xl font-bold text-emerald-800 flex items-center gap-2">
+                    <span>🍷</span> <span data-key="sub-alcohol">Alkoholne pijače</span>
+                </h2>
+            </div>
+            <div class="divide-y divide-emerald-100" id="list-alcohol"></div>
+        </section>
+
+    </main>
+
+    <footer class="py-12 px-6 text-center bg-slate-50 border-t border-slate-100 mt-10">
+        <p id="footer-thanks" class="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-bold">Hvala za obisk</p>
+        <p id="footer-vat" class="text-slate-500 text-xs mt-3 leading-relaxed max-w-xs mx-auto">Cene vključujejo DDV.</p>
+    </footer>
+
+    <script>
+        const translations = {
+            sl: {
+                navFood: "Hrana", navDrinks: "Pijača",
+                "sub-sweet": "Nekaj sladkega", "sub-lunch": "Kosila",
+                "sub-hot": "Topli napitki", "sub-cold": "Hladne pijače", "sub-alcohol": "Alkoholne pijače",
+                footerThanks: "Hvala za obisk", footerVat: "Cene vključujejo DDV.",
+                items: {
+                    espresso: { n: "Espresso", d: "Kava" },
+                    macchiato: { n: "Macchiato", d: "Z mlekom" },
+                    cappuccino: { n: "Cappuccino", d: "Kapučino" },
+                    hottea: { n: "Topel čaj", d: "Različni okusi" },
+                    water: { n: "Voda", d: "Plastenka 0,5L" },
+                    radenska: { n: "Radenska", d: "Mineralna voda 0,5L" },
+                    soda: { n: "Sok / Gazirano", d: "Pepsi, Fanta 0,33L" },
+                    icetea: { n: "Ledeni čaj", d: "0,5L" },
+                    radenska_small: { n: "Radenska", d: "0,1L" },
+                    whitewine: { n: "Belo vino", d: "0,1L" },
+                    redwine: { n: "Rdeče vino", d: "0,1L" },
+                    smallbeer: { n: "Malo pivo", d: "0,3L" },
+                    largebeer: { n: "Veliko pivo", d: "0,5L" },
+                    brandy1: { n: "Žgano 1", d: "0,03L" },
+                    brandy2: { n: "Žgano 2", d: "0,03L" },
+                    croissant: { n: "Rogljiček", d: "Sveže pečeno" },
+                    donut: { n: "Krof", d: "Klasični marelični" },
+                    cevapcici: { n: "Čevapčiči", d: "S krompirčkom" },
+                    kalamari: { n: "Kalamarji", d: "S krompirčkom" },
+                    polenta: { n: "Polenta s pršutom", d: "Domača polenta" },
+                    vienna: { n: "Dunajski zrezek", d: "S krompirčkom" },
+                    jota: { n: "Jota s klobaso", d: "Domača enolončnica" },
+                    sandwich: { n: "Sendvič s šunko", d: "Sveže pripravljen" },
+                    fries: { n: "Krompirček", d: "Porcija" }
+                }
+            },
+            en: {
+                navFood: "Food", navDrinks: "Drinks",
+                "sub-sweet": "Something Sweet", "sub-lunch": "Lunch",
+                "sub-hot": "Hot Drinks", "sub-cold": "Cold Drinks", "sub-alcohol": "Alcoholic Drinks",
+                footerThanks: "Thank you for visiting", footerVat: "Prices include VAT.",
+                items: {
+                    espresso: { n: "Espresso", d: "Coffee" },
+                    macchiato: { n: "Macchiato", d: "With milk" },
+                    cappuccino: { n: "Cappuccino", d: "Cappuccino" },
+                    hottea: { n: "Hot Tea", d: "Various flavors" },
+                    water: { n: "Water", d: "Bottle 0,5L" },
+                    radenska: { n: "Mineral Water", d: "Radenska 0,5L" },
+                    soda: { n: "Soda", d: "Pepsi, Fanta 0,33L" },
+                    icetea: { n: "Ice Tea", d: "0,5L" },
+                    radenska_small: { n: "Mineral Water", d: "0,1L" },
+                    whitewine: { n: "White Wine", d: "0,1L" },
+                    redwine: { n: "Red Wine", d: "0,1L" },
+                    smallbeer: { n: "Small Beer", d: "0,3L" },
+                    largebeer: { n: "Large Beer", d: "0,5L" },
+                    brandy1: { n: "Brandy 1", d: "0,03L" },
+                    brandy2: { n: "Brandy 2", d: "0,03L" },
+                    croissant: { n: "Croissant", d: "Freshly baked" },
+                    donut: { n: "Donut", d: "Classic apricot" },
+                    cevapcici: { n: "Cevapcici", d: "With fries" },
+                    kalamari: { n: "Calamari", d: "With fries" },
+                    polenta: { n: "Polenta with Prosciutto", d: "Homemade" },
+                    vienna: { n: "Vienna Steak", d: "With fries" },
+                    jota: { n: "Jota", d: "Traditional stew with sausage" },
+                    sandwich: { n: "Ham Sandwich", d: "Freshly made" },
+                    fries: { n: "French Fries", d: "Portion" }
+                }
+            },
+            it: {
+                navFood: "Cibo", navDrinks: "Bevande",
+                "sub-sweet": "Qualcosa di Dolce", "sub-lunch": "Pranzo",
+                "sub-hot": "Bevande Calde", "sub-cold": "Bevande Fredde", "sub-alcohol": "Bevande Alcoliche",
+                footerThanks: "Grazie per la visita", footerVat: "I prezzi includono l'IVA.",
+                items: {
+                    espresso: { n: "Espresso", d: "Caffè" },
+                    macchiato: { n: "Macchiato", d: "Con latte" },
+                    cappuccino: { n: "Cappuccino", d: "Cappuccino" },
+                    hottea: { n: "Tè Caldo", d: "Vari gusti" },
+                    water: { n: "Acqua", d: "Bottiglia 0,5L" },
+                    radenska: { n: "Acqua Minerale", d: "Radenska 0,5L" },
+                    soda: { n: "Bibita", d: "Pepsi, Fanta 0,33L" },
+                    icetea: { n: "Tè Freddo", d: "0,5L" },
+                    radenska_small: { n: "Acqua Minerale", d: "0,1L" },
+                    whitewine: { n: "Vino Bianco", d: "0,1L" },
+                    redwine: { n: "Vino Rosso", d: "0,1L" },
+                    smallbeer: { n: "Birra Piccola", d: "0,3L" },
+                    largebeer: { n: "Birra Grande", d: "0,5L" },
+                    brandy1: { n: "Grappa 1", d: "0,03L" },
+                    brandy2: { n: "Grappa 2", d: "0,03L" },
+                    croissant: { n: "Cornetto", d: "Appena sfornato" },
+                    donut: { n: "Krapfen", d: "Classico all'albicocca" },
+                    cevapcici: { n: "Cevapcici", d: "Con patatine" },
+                    kalamari: { n: "Calamari", d: "Con patatine" },
+                    polenta: { n: "Polenta e Prosciutto", d: "Fatto in casa" },
+                    vienna: { n: "Cotoletta", d: "Con patatine" },
+                    jota: { n: "Jota", d: "Zuppa tradizionale con salsiccia" },
+                    sandwich: { n: "Panino al Prosciutto", d: "Preparato fresco" },
+                    fries: { n: "Patatine Fritte", d: "Porzione" }
+                }
+            }
+        };
+
+        const menuData = {
+            sweet: [
+                { id: 'croissant', p: '1.70' },
+                { id: 'donut', p: '1.70' }
+            ],
+            lunch: [
+                { id: 'cevapcici', p: '13.00' },
+                { id: 'kalamari', p: '13.00' },
+                { id: 'polenta', p: '11.00' },
+                { id: 'vienna', p: '13.00' },
+                { id: 'jota', p: '8.00' },
+                { id: 'sandwich', p: '6.00' },
+                { id: 'fries', p: '4.00' }
+            ],
+            hot: [
+                { id: 'espresso', p: '1.80' },
+                { id: 'macchiato', p: '1.80' },
+                { id: 'cappuccino', p: '2.00' },
+                { id: 'hottea', p: '1.80' }
+            ],
+            cold: [
+                { id: 'water', p: '3.00' },
+                { id: 'radenska', p: '3.00' },
+                { id: 'soda', p: '3.00' },
+                { id: 'icetea', p: '3.00' }
+            ],
+            alcohol: [
+                { id: 'radenska_small', p: '0.50' },
+                { id: 'whitewine', p: '1.50' },
+                { id: 'redwine', p: '1.50' },
+                { id: 'smallbeer', p: '2.50' },
+                { id: 'largebeer', p: '3.50' },
+                { id: 'brandy1', p: '3.00' },
+                { id: 'brandy2', p: '3.50' }
+            ]
+        };
+
+        function renderItem(item, type, lang) {
+            const trans = translations[lang].items[item.id];
+            const borderClass = type === 'food' ? 'food-item' : 'drink-item';
+            const textClass = type === 'food' ? 'text-pink-900' : 'text-emerald-900';
+            const priceClass = type === 'food' ? 'text-pink-800' : 'text-emerald-800';
+            const descClass = type === 'food' ? 'text-pink-700/80' : 'text-emerald-700/80';
+
+            return `
+                <div class="px-5 py-4 flex justify-between items-start ${borderClass} hover:bg-slate-50 transition-colors">
+                    <div class="flex-1 pr-4">
+                        <h3 class="font-bold ${textClass} text-base leading-tight">${trans.n}</h3>
+                        <p class="${descClass} text-xs mt-0.5 leading-snug">${trans.d}</p>
+                    </div>
+                    <span class="font-bold ${priceClass} text-base whitespace-nowrap">${item.p}€</span>
+                </div>
+            `;
+        }
+
+        function changeLanguage(lang) {
+            // Update static titles
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                el.innerText = translations[lang][key];
+            });
+
+            document.getElementById('nav-food').innerText = translations[lang].navFood;
+            document.getElementById('nav-drinks').innerText = translations[lang].navDrinks;
+            document.getElementById('footer-thanks').innerText = translations[lang].footerThanks;
+            document.getElementById('footer-vat').innerText = translations[lang].footerVat;
+
+            // Render lists
+            document.getElementById('list-sweet').innerHTML = menuData.sweet.map(i => renderItem(i, 'food', lang)).join('');
+            document.getElementById('list-lunch').innerHTML = menuData.lunch.map(i => renderItem(i, 'food', lang)).join('');
+            document.getElementById('list-hot').innerHTML = menuData.hot.map(i => renderItem(i, 'drink', lang)).join('');
+            document.getElementById('list-cold').innerHTML = menuData.cold.map(i => renderItem(i, 'drink', lang)).join('');
+            document.getElementById('list-alcohol').innerHTML = menuData.alcohol.map(i => renderItem(i, 'drink', lang)).join('');
+
+            // Update buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+            document.documentElement.lang = lang;
+        }
+
+        // Initial render
+        window.onload = () => changeLanguage('sl');
+    </script>
+</body>
+</html>
