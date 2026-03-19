@@ -44,7 +44,7 @@
         <div class="max-w-2xl mx-auto px-4 py-3">
             <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-3">
                 <h1 class="font-bold text-base sm:text-lg tracking-tight uppercase text-center sm:text-left">
-                    Spring Borderless winenr MENU&CENIK 
+                    Spring Borderless winer MENU
                 </h1>
                 <div class="flex gap-1.5">
                     <button onclick="changeLanguage('sl')" id="btn-sl" class="lang-btn active text-[11px] font-bold border border-slate-200 px-3 py-1.5 rounded-md uppercase">SL</button>
@@ -206,7 +206,7 @@
                     cevapcici: { n: "Cevapcici", d: "Con patatine" },
                     kalamari: { n: "Calamari", d: "Con patatine" },
                     polenta: { n: "Polenta e Prosciutto", d: "Fatto in casa" },
-                    vienna: { n: "Cotoletta", d: "Con patatine" },
+                    vienna: { n: "Bistecca viennese", d: "Con patatine" },
                     jota: { n: "Jota", d: "Zuppa tradizionale con salsiccia" },
                     sandwich: { n: "Panino al Prosciutto", d: "Preparato fresco" },
                     fries: { n: "Patatine Fritte", d: "Porzione" }
@@ -238,10 +238,10 @@
                 { id: 'water', p: '3.00' },
                 { id: 'radenska', p: '3.00' },
                 { id: 'soda', p: '3.00' },
-                { id: 'icetea', p: '3.00' }
+                { id: 'icetea', p: '3.00' },
+                { id: 'radenska_small', p: '0.50' }
             ],
             alcohol: [
-                { id: 'radenska_small', p: '0.50' },
                 { id: 'whitewine', p: '1.50' },
                 { id: 'redwine', p: '1.50' },
                 { id: 'smallbeer', p: '2.50' },
@@ -270,7 +270,7 @@
         }
 
         function changeLanguage(lang) {
-            // Update static titles
+            // Posodobi statične naslove
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
                 el.innerText = translations[lang][key];
@@ -281,20 +281,20 @@
             document.getElementById('footer-thanks').innerText = translations[lang].footerThanks;
             document.getElementById('footer-vat').innerText = translations[lang].footerVat;
 
-            // Render lists
+            // Render seznami
             document.getElementById('list-sweet').innerHTML = menuData.sweet.map(i => renderItem(i, 'food', lang)).join('');
             document.getElementById('list-lunch').innerHTML = menuData.lunch.map(i => renderItem(i, 'food', lang)).join('');
             document.getElementById('list-hot').innerHTML = menuData.hot.map(i => renderItem(i, 'drink', lang)).join('');
             document.getElementById('list-cold').innerHTML = menuData.cold.map(i => renderItem(i, 'drink', lang)).join('');
             document.getElementById('list-alcohol').innerHTML = menuData.alcohol.map(i => renderItem(i, 'drink', lang)).join('');
 
-            // Update buttons
+            // Posodobi gumbe
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('btn-' + lang).classList.add('active');
             document.documentElement.lang = lang;
         }
 
-        // Initial render
+        // Začetni render
         window.onload = () => changeLanguage('sl');
     </script>
 </body>
